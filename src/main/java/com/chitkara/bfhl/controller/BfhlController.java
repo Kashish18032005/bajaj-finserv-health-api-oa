@@ -6,8 +6,9 @@ import com.chitkara.bfhl.service.BfhlService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping("/bfhl")
 public class BfhlController {
 
     private final BfhlService bfhlService;
@@ -16,9 +17,20 @@ public class BfhlController {
         this.bfhlService = bfhlService;
     }
 
-    @PostMapping
+    @PostMapping("/bfhl")
     public ResponseEntity<BfhlResponse> processData(@RequestBody BfhlRequest request) {
         BfhlResponse response = bfhlService.processData(request);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/bfhl")
+    public ResponseEntity<Map<String, Integer>> getOperationCode() {
+        return ResponseEntity.ok(Map.of("operation_code", 1));
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<Map<String, String>> health() {
+        return ResponseEntity.ok(Map.of("status", "UP"));
+    }
 }
+
